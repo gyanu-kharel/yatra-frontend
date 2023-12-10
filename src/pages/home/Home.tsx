@@ -1,6 +1,8 @@
+import Navbar from "../../layouts/Navbar";
+
 const Home = () => {
     return(
-        <>Home</>
+        <></>
     );
 };
 

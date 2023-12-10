@@ -10,6 +10,10 @@ const login = (data: LoginData) => {
     return http.post<LoginData>('/auth/login', data)
 };
 
+const logout = () => {
+    clearCookies();
+}
+
 const isAuthenticated = (): boolean => {
     var user = localStorage.getItem("appUser");
     if (user && user != null) {
@@ -25,8 +29,8 @@ const clearCookies = () => {
 const AuthenticationService = {
     register,
     login,
+    logout,
     isAuthenticated,
-    clearCookies
 }
 
 export default AuthenticationService;
