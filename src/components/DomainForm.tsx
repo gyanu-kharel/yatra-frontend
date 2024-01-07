@@ -1,7 +1,7 @@
 import { Card, CardHeader, Heading, Stack } from "@chakra-ui/react";
 import "../index.css";
 import { useEffect, useState } from "react";
-import { DomainData } from "../types/Domain";
+import { DomainData } from "../types/Ideas";
 import DomainService from "../services/DomainService";
 import { IdeasFormData } from "../pages/menu/Ideas";
 

@@ -18,31 +18,37 @@ const steps = [
   "Ideas",
 ];
 
-
 export type IdeasFormDataType = {
-  domainId: string | null,
-  duration: number | null,
-  teamSize: number | null,
-  skillLevel: string | null,
-  complexity: string | null,
-}
-
+  domainId: string | null;
+  duration: number | null;
+  teamSize: number | null;
+  skillLevel: string | null;
+  complexity: string | null;
+};
 
 export type IdeasFormData = {
-  data: IdeasFormDataType,
-  updateForm: (key: any, value: any) =>  void
-}
+  data: IdeasFormDataType;
+  updateForm: (key: any, value: any) => void;
+};
 
-const defaultData : IdeasFormDataType = {
+const defaultData: IdeasFormDataType = {
   domainId: null,
   duration: null,
   teamSize: null,
   skillLevel: null,
   complexity: null,
-}
+};
 
 const Ideas = () => {
   const [index, setIndex] = useState<number>(0);
+  const [formData, setFormData] = useState<IdeasFormDataType>(defaultData);
+
+  const updateFormData = (propertyName: any, newValue: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      [propertyName]: newValue,
+    }));
+  };
 
   const decreaseIndex = () => {
     if (index < 1) return;
@@ -55,34 +61,43 @@ const Ideas = () => {
   };
 
   const renderSwitch = (index: number) => {
-    const [formData, setFormData] = useState<IdeasFormDataType>(defaultData);
-  
-    const updateFormData = (propertyName: any, newValue: any) => {
-      setFormData((prev) => ({
-        ...prev,
-        [propertyName]: newValue,
-      }));
-      console.log(formData);
-    };
-  
     switch (index) {
       case 0:
-        return <DomainForm updateForm={updateFormData} data={formData}/>;
+        return <DomainForm updateForm={updateFormData} data={formData} />;
       case 1:
-        return <DurationForm />;
+        return <DurationForm updateForm={updateFormData} data={formData} />;
       case 2:
-        return <TeamSizeForm />;
+        return <TeamSizeForm updateForm={updateFormData} data={formData} />;
       case 3:
-        return <SkillLevelForm />;
+        return <SkillLevelForm updateForm={updateFormData} data={formData} />;
       case 4:
-        return <ComplexityForm />;
+        return <ComplexityForm updateForm={updateFormData} data={formData} />;
       case 5:
-        return <IdeasResult />;
+        return <IdeasResult updateForm={updateFormData} data={formData} />;
       default:
         return <DomainForm updateForm={updateFormData} data={formData} />;
-    }
+    };
   };
   
+  const disableNextButton = (index: number) => {
+    switch (index) {
+      case 0:
+        return formData.domainId == null;
+      case 1:
+        return formData.duration == null;
+      case 2:
+        return formData.teamSize == null;
+      case 3:
+        return formData.skillLevel == null;
+      case 4:
+        return formData.complexity == null;
+      case 5:
+        return true;
+      default:
+        return false;
+    };
+  };
+
   return (
     <>
       <div style={{ fontSize: 25 }}>Idea Generation</div>
@@ -96,16 +111,17 @@ const Ideas = () => {
           leftIcon={<ArrowBackIcon />}
           colorScheme={index == 0 ? "gray" : "teal"}
           onClick={decreaseIndex}
-          disabled= {index == 0}
+          isDisabled={index == 0}
         >
           Back
         </Button>
         <Button
           rightIcon={<ArrowForwardIcon />}
-          colorScheme="teal"
+          colorScheme={disableNextButton(index) ? "gray" : "teal"}
           onClick={increaseIndex}
+          isDisabled={disableNextButton(index)}
         >
-          {index == steps.length ? "Submit" : "Next"}
+          {index == steps.length-2 ? "Submit" : "Next"}
         </Button>
       </Stack>
     </>

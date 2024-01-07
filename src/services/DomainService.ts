@@ -1,5 +1,5 @@
 import http from "../http-common";
-import { DomainData } from "../types/Domain";
+import { DomainData } from "../types/Ideas";
 
 const getAllDomains = () => {
     return http.get<DomainData[]>("/domains");
