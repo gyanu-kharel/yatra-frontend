@@ -6,7 +6,6 @@ const IdeasResult = (props: IdeasFormData) => {
   const [ideas, setIdeas] = useState<string>();
 
   useEffect(() => {
-    console.log()
     IdeasService.generateIdeas(props.data)
       .then((response: any) => {
         setIdeas(response.data)
