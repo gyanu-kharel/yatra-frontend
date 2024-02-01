@@ -1,16 +1,21 @@
-.link{
+.link {
     color: rgb(74, 93, 188);
 }
 
-.container-fluid{
+.container-fluid {
     margin: 40px;
 }
 
-.domain-card :hover{
+.domain-card :hover {
     cursor: pointer;
 }
 
-.card-selected{
+.card-selected {
     background-color: red;
     color: red;
+}
+
+.project-register-btn{
+    float: right;
+    margin-bottom: 20px;
 }

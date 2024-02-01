@@ -5,8 +5,9 @@ import Register from "../pages/authentication/Register";
 import PrivateRouter from "./PrivateRouter";
 import MainLayout from "../layouts/MainLayout";
 import Ideas from "../pages/menu/Ideas";
-import Projects from "../pages/menu/Projects";
+import Projects from "../pages/projects/Projects";
 import About from "../pages/menu/About";
+import ProjectDetail from "../pages/projects/ProjectDetail";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
             {path: '/', element: <Home />},
             {path: '/ideas', element: <Ideas />},
             {path: '/projects', element: <Projects />},
-            {path: '/about', element: <About />}
+            {path: '/about', element: <About />},
+            {path: '/projects/:id', element: <ProjectDetail />}
         ]
     },
     {
