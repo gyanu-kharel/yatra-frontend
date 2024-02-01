@@ -1,5 +1,5 @@
 import { Card, CardHeader, Heading, Stack } from "@chakra-ui/react";
-import { IdeasFormData } from "../pages/menu/Ideas";
+import { IdeasFormData } from "../pages/ideas/Ideas";
 import { useEffect, useState } from "react";
 import { TeamSizeData } from "../types/Ideas";
 

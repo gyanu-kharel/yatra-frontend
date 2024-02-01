@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IdeasFormData } from "../pages/menu/Ideas";
+import { IdeasFormData } from "../pages/ideas/Ideas";
 import IdeasService from "../services/IdeasServices";
 
 const IdeasResult = (props: IdeasFormData) => {

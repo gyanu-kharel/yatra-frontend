@@ -4,9 +4,9 @@ import Login from "../pages/authentication/Login";
 import Register from "../pages/authentication/Register";
 import PrivateRouter from "./PrivateRouter";
 import MainLayout from "../layouts/MainLayout";
-import Ideas from "../pages/menu/Ideas";
+import Ideas from "../pages/ideas/Ideas";
 import Projects from "../pages/projects/Projects";
-import About from "../pages/menu/About";
+import About from "../pages/about/About";
 import ProjectDetail from "../pages/projects/ProjectDetail";
 
 const router = createBrowserRouter([

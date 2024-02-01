@@ -1,6 +1,5 @@
 import { Button, Stack } from "@chakra-ui/react";
 import Progress from "../../components/Progress";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import DomainForm from "../../components/DomainForm";
 import DurationForm from "../../components/DurationForm";
@@ -8,6 +7,8 @@ import TeamSizeForm from "../../components/TeamSizeForm";
 import SkillLevelForm from "../../components/SkillLevelForm";
 import ComplexityForm from "../../components/ComplexityForm";
 import IdeasResult from "../../components/IdeasResult";
+
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
 const steps = [
   "Domain",

@@ -18,11 +18,16 @@ const getDetail = (id: string) => {
     return httpCommon.get<ProjectDetailData[]>(`/projects/${id}`);
 }
 
+const deleteProject = (id: string) => {
+    return httpCommon.delete<any>(`/projects/${id}`);
+}
+
 const ProjectsService = {
     getProjects,
     createProject,
     getLatestProjects,
-    getDetail
+    getDetail,
+    deleteProject
 };
 
 export default ProjectsService;

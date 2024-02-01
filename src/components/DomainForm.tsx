@@ -3,7 +3,7 @@ import "../index.css";
 import { useEffect, useState } from "react";
 import { DomainData } from "../types/Ideas";
 import DomainService from "../services/DomainService";
-import { IdeasFormData } from "../pages/menu/Ideas";
+import { IdeasFormData } from "../pages/ideas/Ideas";
 
 const DomainForm = (props : IdeasFormData) => {
   const [domains, setDomains] = useState<DomainData[]>([]);

@@ -4,7 +4,10 @@ import ProjectsService from "../../services/ProjectsService";
 import RegisterProject from "./RegisterProject";
 import { DomainData } from "../../types/Ideas";
 import DomainService from "../../services/DomainService";
-import { Button, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
+import { ViewIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
+import DeleteProject from "./DeleteProject";
 
 
 const colors: string[] = ["blue", "red", "green", "teal", "purple"];
@@ -12,7 +15,9 @@ const colors: string[] = ["blue", "red", "green", "teal", "purple"];
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<ProjectsData[]>();
   const [domains, setDomains] = useState<DomainData[]>();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isRegisterOpen, onOpen: onRegisterOpen, onClose: onRegisterClose } = useDisclosure();
+  const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure();
+  const [deleteProject, setDeleteProject] = useState<ProjectsData>();
 
   useEffect(() => {
     ProjectsService.getProjects()
@@ -32,13 +37,18 @@ const Projects: React.FC = () => {
         setProjects(response.data);
       });
 
-    onClose();
-  }
+    onRegisterClose();
+  };
+
+  const openDeleteProject = (data: ProjectsData) => {
+    setDeleteProject(data);
+    onDeleteOpen();
+  };
 
 
   return (
     <div>
-      <Button className="project-register-btn" colorScheme="teal" onClick={onOpen}>Register</Button>
+      <Button className="project-register-btn" colorScheme="teal" onClick={onRegisterOpen}>Register</Button>
       <br />
       <TableContainer mt={5}>
         <Table variant='simple'>
@@ -50,29 +60,44 @@ const Projects: React.FC = () => {
               <Th>Skill Level</Th>
               <Th>Complexity</Th>
               <Th>Domain</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
             {projects?.map((item, index) => {
               return (
-                <Tr key={index} style={{ cursor: "pointer" }}>
-                  <Td>{item.title}</Td>
-                  <Td>{item.duration} month(s)</Td>
-                  <Td>{item.teamSize}</Td>
-                  <Td>{item.skillLevel}</Td>
-                  <Td>{item.complexity}</Td>
-                  <Td>
-                    <Tag size="md" key={index} variant='outline' colorScheme={colors[Math.floor(Math.random() * colors.length)]}>
-                      {item.domain}
-                    </Tag>
-                  </Td>
-                </Tr>
+                <>
+                  <Tr key={index}>
+                    <Td>{item.title}</Td>
+                    <Td>{item.duration} month(s)</Td>
+                    <Td>{item.teamSize}</Td>
+                    <Td>{item.skillLevel}</Td>
+                    <Td>{item.complexity}</Td>
+                    <Td>
+                      <Tag size="md" key={index} variant='outline' colorScheme={colors[Math.floor(Math.random() * colors.length)]}>
+                        {item.domain}
+                      </Tag>
+                    </Td>
+                    <Td>
+                      <Flex justifyContent={"space-between"}>
+                        <Link to={`/projects/${item.id}`}>
+                          <ViewIcon color={"teal"} />
+                        </Link>
+                        <EditIcon color={"blue"} />
+                        <DeleteIcon color={"red.400"} onClick={() => openDeleteProject(item)} />
+                      </Flex>
+                    </Td>
+                  </Tr>
+                </>
               );
-            })};
+            })}
           </Tbody>
         </Table>
       </TableContainer>
-      <RegisterProject isOpen={isOpen} onClose={refreshList} domains={domains} />
+      <RegisterProject isOpen={isRegisterOpen} onClose={refreshList} domains={domains} />
+      {deleteProject &&
+        <DeleteProject isOpen={isDeleteOpen} id={deleteProject.id} title={deleteProject.title} onClose={onDeleteClose} />
+      }
     </div>
   );
 };
