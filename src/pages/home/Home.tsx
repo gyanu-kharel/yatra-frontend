@@ -17,11 +17,6 @@ const Home = () => {
 
     return (
         <>
-            <Stack>
-                <Heading size={"lg"}>Recommended</Heading> <hr />
-                <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
-                </Flex>
-            </Stack>
             <Stack mt={5}>
                 <Heading size={"lg"}>Latest</Heading> <hr />
                 <Flex justifyContent={"space-between"} flexWrap={"wrap"}>

@@ -22,12 +22,17 @@ const deleteProject = (id: string) => {
     return httpCommon.delete<any>(`/projects/${id}`);
 }
 
+const recommend = (id: string) => {
+    return httpCommon.get<any>(`/scripts/recommend/${id}`);
+}
+
 const ProjectsService = {
     getProjects,
     createProject,
     getLatestProjects,
     getDetail,
-    deleteProject
+    deleteProject,
+    recommend
 };
 
 export default ProjectsService;

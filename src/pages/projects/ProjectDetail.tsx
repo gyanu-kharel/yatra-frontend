@@ -16,25 +16,27 @@ import {
     Icon,
     HStack,
 } from '@chakra-ui/react';
-import { MdLocalShipping, MdPerson, MdVisibility, MdFavorite } from 'react-icons/md'
+import { MdPerson, MdVisibility, MdFavorite } from 'react-icons/md'
 import { useParams } from 'react-router';
 import { ProjectDetailData } from '../../types/Projects';
 import { useEffect, useState } from 'react';
 import ProjectsService from '../../services/ProjectsService';
+import ProjectCard, { ProjectCardProps } from '../home/ProjectCard';
 
 const ProjectDetail = () => {
 
     const { id } = useParams();
     const [project, setProject] = useState<ProjectDetailData>();
-
+    const [recommendedProjects, setRecommendedProjects] = useState<ProjectDetailData[]>([]);
 
     useEffect(() => {
         ProjectsService.getDetail(id!)
             .then((response: any) => {
-                setProject(response.data);
+                setProject(response.data.data);
+                setRecommendedProjects(response.data.recommendations);
             });
+    }, [id]);
 
-    }, []);
     return (
         <Container maxW={'7xl'}>
             <SimpleGrid
@@ -105,29 +107,6 @@ const ProjectDetail = () => {
                                 fontWeight={'500'}
                                 textTransform={'uppercase'}
                                 mb={'4'}>
-                                Features
-                            </Text>
-
-                            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                                <List spacing={2}>
-                                    <ListItem>Chronograph</ListItem>
-                                    <ListItem>Master Chronometer Certified</ListItem>{' '}
-                                    <ListItem>Tachymeter</ListItem>
-                                </List>
-                                <List spacing={2}>
-                                    <ListItem>Anti‑magnetic</ListItem>
-                                    <ListItem>Chronometer</ListItem>
-                                    <ListItem>Small seconds</ListItem>
-                                </List>
-                            </SimpleGrid>
-                        </Box>
-                        <Box>
-                            <Text
-                                fontSize={{ base: '16px', lg: '18px' }}
-                                color={useColorModeValue('yellow.500', 'yellow.300')}
-                                fontWeight={'500'}
-                                textTransform={'uppercase'}
-                                mb={'4'}>
                                 Project Details
                             </Text>
 
@@ -185,15 +164,25 @@ const ProjectDetail = () => {
                             transform: 'translateY(2px)',
                             boxShadow: 'lg',
                         }}>
-                        Add to cart
+                        Add to favorites
                     </Button>
-
-                    <Stack direction="row" alignItems="center" justifyContent={'center'}>
-                        <MdLocalShipping />
-                        <Text>2-3 business days delivery</Text>
-                    </Stack>
                 </Stack>
             </SimpleGrid>
+            <Stack mt={5}>
+                <Heading size={"lg"}>Recommended</Heading> <hr />
+                <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+                    {recommendedProjects.map((item, index) => {
+                        var props : ProjectCardProps = {
+                            id: item.id,
+                            domain: item.domain,
+                            owner: item.owner!,
+                            projectYear: item.projectYear!,
+                            title: item.title
+                        }
+                        return <ProjectCard {...props} key={index} />
+                    })}
+                </Flex>
+            </Stack>
         </Container>
     )
 };
