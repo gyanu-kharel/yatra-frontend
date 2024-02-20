@@ -31,7 +31,9 @@ export interface ProjectsData {
     domain: string,
     title: string,
     projectYear: Date,
-    owner: string
+    owner: string,
+    favoriteCount: number,
+    viewCount: number
   }
 
   export interface ProjectDetailData {
@@ -45,5 +47,8 @@ export interface ProjectsData {
     skillLevel?: string;
     complexity?: string;
     projectYear?: Date;
-    owner?: string
+    owner?: string;
+    favoriteCount: number;
+    viewCount: number;
+    isFavorite: boolean
   };

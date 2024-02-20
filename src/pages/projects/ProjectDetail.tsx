@@ -37,6 +37,13 @@ const ProjectDetail = () => {
             });
     }, [id]);
 
+    const handleFavoriteBtn = () =>{
+        ProjectsService.favorite(project?.id!)
+            .then((_) => {
+                window.location.reload();
+            })
+    }
+
     return (
         <Container maxW={'7xl'}>
             <SimpleGrid
@@ -73,19 +80,16 @@ const ProjectDetail = () => {
 
                             <HStack>
                                 <Icon as={MdVisibility} color={"teal"} w={5} h={5} />
-                                <Text>500</Text>
+                                <Text>{project?.viewCount ?? 0}</Text>
                             </HStack>
 
                             <HStack>
                                 <Icon as={MdFavorite} w={5} h={5} color={"red"} />
-                                <Text>200</Text>
+                                <Text>{project?.favoriteCount ?? 0}</Text>
                             </HStack>
                         </Stack>
                         <br />
                     </Box>
-
-
-
                     <Stack
                         spacing={{ base: 4, sm: 6 }}
                         direction={'column'}
@@ -143,7 +147,7 @@ const ProjectDetail = () => {
                                 </ListItem>
                                 <ListItem>
                                     <Text as={'span'} fontWeight={'bold'}>
-                                       Project Year:
+                                        Project Year:
                                     </Text>{' '}
                                     {new Date(project?.projectYear!).toDateString()}
                                 </ListItem>
@@ -151,7 +155,7 @@ const ProjectDetail = () => {
                         </Box>
                     </Stack>
 
-                    <Button
+                    {project?.isFavorite ? <Button
                         rounded={'none'}
                         w={'full'}
                         mt={8}
@@ -163,21 +167,42 @@ const ProjectDetail = () => {
                         _hover={{
                             transform: 'translateY(2px)',
                             boxShadow: 'lg',
-                        }}>
-                        Add to favorites
-                    </Button>
+                        }}
+                        onClick={() => handleFavoriteBtn()}
+                        >
+                        Remove from favorites
+                    </Button> : 
+                        <Button
+                            rounded={'none'}
+                            w={'full'}
+                            mt={8}
+                            size={'lg'}
+                            py={'7'}
+                            bg={"teal"}
+                            color={useColorModeValue('white', 'gray.900')}
+                            textTransform={'uppercase'}
+                            _hover={{
+                                transform: 'translateY(2px)',
+                                boxShadow: 'lg',
+                            }}
+                            onClick={() => handleFavoriteBtn()}
+                            >
+                            Add to favorites
+                        </Button>}
                 </Stack>
             </SimpleGrid>
             <Stack mt={5}>
                 <Heading size={"lg"}>Recommended</Heading> <hr />
                 <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
                     {recommendedProjects.map((item, index) => {
-                        var props : ProjectCardProps = {
+                        var props: ProjectCardProps = {
                             id: item.id,
                             domain: item.domain,
                             owner: item.owner!,
                             projectYear: item.projectYear!,
-                            title: item.title
+                            title: item.title,
+                            favoriteCount: item.favoriteCount,
+                            viewCount: item.viewCount
                         }
                         return <ProjectCard {...props} key={index} />
                     })}

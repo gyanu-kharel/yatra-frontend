@@ -6,13 +6,18 @@ import ProjectsService from "../../services/ProjectsService";
 
 const Home = () => {
     const [latesProjects, setLatestProjects] = useState<LatestProjectsData[]>([]);
-
+    const [popularProjects, setPopularProjects] = useState<LatestProjectsData[]>([]);
 
     useEffect(() => {
         ProjectsService.getLatestProjects()
             .then((response: any) => {
                 setLatestProjects(response.data);
-            })
+            });
+
+        ProjectsService.getPopularProjects()
+            .then((response: any) => {
+                setPopularProjects(response.data);
+            });
     }, [])
 
     return (
@@ -28,6 +33,9 @@ const Home = () => {
             <Stack mt={5}>
                 <Heading size={"lg"}>Popular</Heading> <hr />
                 <Flex justifyContent={"space-between"} flexWrap={"wrap"}>
+                    {popularProjects.map((item, index) => {
+                        return <ProjectCard {...item} key={index} />
+                    })}
                 </Flex>
             </Stack>
         </>

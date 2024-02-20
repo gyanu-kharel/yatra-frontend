@@ -7,10 +7,13 @@ import {
   Stack,
   Avatar,
   useColorModeValue,
+  HStack,
+  Icon,
 } from '@chakra-ui/react'
 import { LatestProjectsData } from '../../types/Projects';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { MdFavorite, MdVisibility } from 'react-icons/md';
 
 export interface ProjectCardProps extends LatestProjectsData {
 }
@@ -52,6 +55,12 @@ const ProjectCard = (props: ProjectCardProps) => {
             fontFamily={'body'}>
             {props.title}
           </Heading>
+          <HStack>
+              <Icon as={MdFavorite} w={5} h={5} color={"red"} />
+              <Text>{props?.favoriteCount ?? 0}</Text>
+              <Icon as={MdVisibility} color={"teal"} w={5} h={5} />
+              <Text>{props?.viewCount ?? 0}</Text>
+          </HStack>
         </Stack>
         <Stack direction={'row'} align={'center'}>
           <Avatar src={'https://avatars0.githubusercontent.com/u/1164541?v=4'} />
