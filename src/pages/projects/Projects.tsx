@@ -20,7 +20,7 @@ const Projects: React.FC = () => {
   const [deleteProject, setDeleteProject] = useState<ProjectsData>();
 
   useEffect(() => {
-    ProjectsService.getProjects()
+    ProjectsService.getProjectsForUsers()
       .then((response: any) => {
         setProjects(response.data);
       });

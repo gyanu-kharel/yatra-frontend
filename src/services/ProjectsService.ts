@@ -22,7 +22,7 @@ const getDetail = (id: string) => {
     return httpAuth.get<ProjectDetailData[]>(`/projects/${id}`);
 }
 
-const deleteProject = (id: string) => {
+const deleteProject = (id: string) => {1
     return httpAuth.delete<any>(`/projects/${id}`);
 }
 
@@ -34,6 +34,10 @@ const favorite = (id: string) => {
     return httpAuth.post<null>(`/projects/favorite/${id}`);
 }
 
+const getProjectsForUsers = () => {
+    return httpAuth.get<ProjectsData[]>("/projects/getallforuser");
+}
+
 const ProjectsService = {
     getProjects,
     createProject,
@@ -42,7 +46,8 @@ const ProjectsService = {
     getDetail,
     deleteProject,
     recommend,
-    favorite
+    favorite,
+    getProjectsForUsers
 };
 
 export default ProjectsService;
