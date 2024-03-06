@@ -75,11 +75,11 @@ const Login = () => {
                     <form onSubmit={handleFormSubmit}>
                         <FormControl id="email">
                             <FormLabel>Email address</FormLabel>
-                            <Input name='email' type="email" onChange={handleInputChange} />
+                            <Input name='email' type="email" onChange={handleInputChange} isRequired/>
                         </FormControl>
                         <FormControl id="password" mt={3}>
                             <FormLabel>Password</FormLabel>
-                            <Input name='password' type="password" onChange={handleInputChange} />
+                            <Input name='password' type="password" onChange={handleInputChange} isRequired/>
                         </FormControl>
                         <Stack spacing={6} mt={3}>
                             <Button colorScheme={'green'} variant={'solid'} type='submit'>
